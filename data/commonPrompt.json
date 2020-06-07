@@ -1,0 +1,17 @@
+[
+    {
+        "type": "input",
+        "name": "name",
+        "message": "What is the employees name?"
+    },
+    {
+        "type": "input",
+        "name": "id",
+        "message": "What is the employees id?"
+    },
+    {
+        "type": "input",
+        "name": "email",
+        "message": "What is the employees email?"
+    }
+]

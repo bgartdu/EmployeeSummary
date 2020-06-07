@@ -1,58 +1,29 @@
-const Manager = require("./lib/Manager");
-const Engineer = require("./lib/Engineer");
-const Intern = require("./lib/Intern");
+// Libraries required
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs-promise-native");
 
-const OUTPUT_DIR = path.resolve(__dirname, "output");
-const outputPath = path.join(OUTPUT_DIR, "team.html");
-
+//Local files required
+const commonPrompt = require ("./data/commonPrompt");
+const additionalPrompt = require("./data/additionalPrompt");
 const render = require("./lib/htmlRenderer");
 
-const commonPrompt = [
-    {
-        type: "input",
-        name: "name",
-        message: "What is the employees name?"
-    },
-    {
-        type: "input",
-        name: "id",
-        message: "What is the employees id?"
-    },
-    {
-        type: "input",
-        name: "email",
-        message: "What is the employees email?"
-    }
-];
+//Primary constants
+const OUTPUT_DIR = path.resolve(__dirname, "output");
+const OUTPUT_PATH = path.join(OUTPUT_DIR, "team.html");
 
-const additionalPrompt = {
-    Engineer: [
-        {
-            type: "input",
-            name: "github",
-            message: "What is the employees github?"
-        }
-    ],
-    Intern: [
-        {
-            type: "input",
-            name: "school",
-            message: "What is the employees school?"
-        }
-    ],
-    Manager: [
-        {
-            type: "input",
-            name: "officeNumber",
-            message: "What is the employees office number?"
-        }
-    ],
+const MODULE_DIR = path.resolve(__dirname, "lib")
+const MODULES= [ "Engineer", "Intern", "Manager" ]
+
+const constructors = { }
+const choices = [ ];
+for (let i in MODULES) {
+    const module = MODULES[i]
+    choices[choices.length]= modules;
+    constructors[module] = require(path.join(MODULE_DIR, module))
 }
 
-const constructors = { Engineer, Intern, Manager }
+choices[choices.length]= "Done";
 
 /** Creates an instance with a constructor and the given argument array. */
 function createInstance(constructor, argArray) {
@@ -81,7 +52,7 @@ async function main() {
                 type: "list",
                 message: "What kind of employee do you want to create?",
                 name: "kind",
-                choices: [ "Engineer", "Intern", "Manager", "Done"],
+                choices,
             }
         ]);
         
@@ -93,9 +64,9 @@ async function main() {
     }
 
     const html = (render(employees));
-    try { await fs.mkdir("./output");} catch (err) {}
+    try { await fs.mkdir(OUTPUT_DIR);} catch (err) {}
 
-    await fs.writeFile("./output/team.html", html);
+    await fs.writeFile(OUTPUT_PATH, html);
     
 }
 
