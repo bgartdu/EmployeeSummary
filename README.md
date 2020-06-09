@@ -3,7 +3,7 @@
 
 ## Description
 
-This is a team page generator using node.
+This is a team page generator using node.  For this homework I relied heavily on the assistance of a tutor.  I did understand it more though.
 
 ## Table of Contents
 
